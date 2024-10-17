@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Pneus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Pneus</h1>
+        <div class="form-container">
+            <label for="tipoPneu">Tipo de Pneu:</label>
+            <select id="tipoPneu">
+                <option value="">Selecione um tipo de pneu</option>
+                <option value="kmax">Kmax</option>
+                <option value="fs440">FS440</option>
+                <option value="multz">Multz</option>
+                <option value="multt">MultT</option>
+                <option value="xbri">Xbri</option>
+                <option value="r269">R269</option>
+                <option value="htr1">Htr1</option>
+                <option value="outro">Outro (Especificar)</option>
+            </select>
+
+            <div id="outroTipoPneu" style="display: none;">
+                <label for="tipoPneuManual">Digite o nome do pneu:</label>
+                <input type="text" id="tipoPneuManual" placeholder="Digite o tipo de pneu">
+            </div>
+
+            <label for="operacao">Operação:</label>
+            <select id="operacao">
+                <option value="a">Adicionar</option>
+                <option value="s">Subtrair</option>
+            </select>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" placeholder="Digite a quantidade">
+
+            <button id="adicionar">Executar Operação</button>
+        </div>
+
+        <div class="resultados">
+            <h2>Resumo de Pneus</h2>
+            <ul id="resumo"></ul>
+            <p id="totalGeral"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
