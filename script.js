@@ -9,22 +9,6 @@ const quantidadeInput = document.getElementById('quantidade');
 const adicionarButton = document.getElementById('adicionar');
 const resumoUl = document.getElementById('resumo');
 const totalGeralP = document.getElementById('totalGeral');
-
-// Verifica se o tipo de pneu foi selecionado da lista ou digitado manualmente
-    if (tipoPneuSelecionado === 'outro') {
-        tipoPneu = document.getElementById('tipoPneuManual').value.trim().toLowerCase();
-    } else {
-        tipoPneu = tipoPneuSelecionado.trim().toLowerCase();
-    }
-
-    const operacao = document.getElementById('operacao').value;
-    const quantidade = parseInt(document.getElementById('quantidade').value);
-
-    if (!tipoPneu || isNaN(quantidade)) {
-        alert("Por favor, insira um tipo de pneu e uma quantidade válida.");
-        return;
-    }
-
 // Desabilita o botão se os campos não estiverem preenchidos corretamente
 function validarFormulario() {
     const tipoPneuValido = tipoPneuSelect.value || tipoPneuManualInput.value.trim();
