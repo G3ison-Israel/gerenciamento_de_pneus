@@ -2,21 +2,53 @@ const pneusPorTipo = {};
 const pneusSomados = {};
 const pneusSubtraidos = {};
 
-document.getElementById('adicionar').addEventListener('click', () => {
-    const tipoPneuSelecionado = document.getElementById('tipoPneu').value;
+const tipoPneuSelect = document.getElementById('tipoPneu');
+const tipoPneuManualInput = document.getElementById('tipoPneuManual');
+const operacaoSelect = document.getElementById('operacao');
+const quantidadeInput = document.getElementById('quantidade');
+const adicionarButton = document.getElementById('adicionar');
+const resumoUl = document.getElementById('resumo');
+const totalGeralP = document.getElementById('totalGeral');
+
+// Desabilita o botão se os campos não estiverem preenchidos corretamente
+function validarFormulario() {
+    const tipoPneuValido = tipoPneuSelect.value || tipoPneuManualInput.value.trim();
+    const quantidadeValida = quantidadeInput.value > 0;
+    adicionarButton.disabled = !(tipoPneuValido && quantidadeValida);
+}
+
+// Mostra o campo "Outro" se o tipo de pneu for "Outro"
+tipoPneuSelect.addEventListener('change', (event) => {
+    const outroTipoPneuDiv = document.getElementById('outroTipoPneu');
+    if (event.target.value === 'outro') {
+        outroTipoPneuDiv.style.display = 'block';
+    } else {
+        outroTipoPneuDiv.style.display = 'none';
+        tipoPneuManualInput.value = ''; // Limpa o campo se não for "Outro"
+    }
+    validarFormulario();
+});
+
+// Validação em tempo real no campo de quantidade
+quantidadeInput.addEventListener('input', validarFormulario);
+
+// Adiciona um evento ao botão de adicionar/subtrair
+adicionarButton.addEventListener('click', () => {
+    const tipoPneuSelecionado = tipoPneuSelect.value;
     let tipoPneu = '';
 
     // Verifica se o tipo de pneu foi selecionado da lista ou digitado manualmente
     if (tipoPneuSelecionado === 'outro') {
-        tipoPneu = document.getElementById('tipoPneuManual').value.trim().toLowerCase();
+        tipoPneu = tipoPneuManualInput.value.trim().toLowerCase();
     } else {
         tipoPneu = tipoPneuSelecionado.trim().toLowerCase();
     }
 
-    const operacao = document.getElementById('operacao').value;
-    const quantidade = parseInt(document.getElementById('quantidade').value);
+    const operacao = operacaoSelect.value;
+    const quantidade = parseInt(quantidadeInput.value);
 
-    if (!tipoPneu || isNaN(quantidade)) {
+    // Verifica se todos os campos estão preenchidos corretamente
+    if (!tipoPneu || isNaN(quantidade) || quantidade <= 0) {
         alert("Por favor, insira um tipo de pneu e uma quantidade válida.");
         return;
     }
@@ -28,6 +60,7 @@ document.getElementById('adicionar').addEventListener('click', () => {
         pneusSubtraidos[tipoPneu] = 0;
     }
 
+    // Operação de adicionar ou subtrair pneus
     if (operacao === 'a') {
         pneusPorTipo[tipoPneu] += quantidade;
         pneusSomados[tipoPneu] += quantidade;
@@ -42,10 +75,19 @@ document.getElementById('adicionar').addEventListener('click', () => {
     }
 
     atualizarResumo();
+
+    // Feedback visual ao clicar no botão
+    adicionarButton.classList.add('botao-clicado');
+    setTimeout(() => {
+        adicionarButton.classList.remove('botao-clicado');
+    }, 150);
+
+    // Limpa o campo de quantidade após a operação
+    quantidadeInput.value = '';
+    validarFormulario();
 });
 
 function atualizarResumo() {
-    const resumoUl = document.getElementById('resumo');
     resumoUl.innerHTML = '';
 
     for (const tipo in pneusPorTipo) {
@@ -60,17 +102,8 @@ function atualizarResumo() {
     }
 
     const totalGeral = Object.values(pneusPorTipo).reduce((acc, cur) => acc + cur, 0);
-    document.getElementById('totalGeral').innerText = `Total geral de pneus: ${totalGeral}`;
+    totalGeralP.innerText = `Total geral de pneus: ${totalGeral}`;
 }
 
-// Mostrar campo de texto "Outro" se o usuário escolher "Outro"
-document.getElementById('tipoPneu').addEventListener('change', (event) => {
-    const outroTipoPneuDiv = document.getElementById('outroTipoPneu');
-    if (event.target.value === 'outro') {
-        outroTipoPneuDiv.style.display = 'block';
-    } else {
-        outroTipoPneuDiv.style.display = 'none';
-        document.getElementById('tipoPneuManual').value = ''; // Limpa o campo caso o usuário volte a selecionar uma opção
-    }
-});
-
+// Valida o formulário no carregamento
+validarFormulario();
