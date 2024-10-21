@@ -28,6 +28,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2{
+    margin-bottom: 10px;
+}
+
 .form-container {
     display: flex;
     flex-direction: column;
