@@ -38,9 +38,9 @@ adicionarButton.addEventListener('click', () => {
 
     // Verifica se o tipo de pneu foi selecionado da lista ou digitado manualmente
     if (tipoPneuSelecionado === 'outro') {
-        tipoPneu = tipoPneuManualInput.value.trim().toLowerCase();
+        tipoPneu = tipoPneuManualInput.value.trim().toUpperCase();
     } else {
-        tipoPneu = tipoPneuSelecionado.trim().toLowerCase();
+        tipoPneu = tipoPneuSelecionado.trim().toUpperCase();
     }
 
     const operacao = operacaoSelect.value;
