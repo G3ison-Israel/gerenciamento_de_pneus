@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -52,4 +52,62 @@
 
     <script src="script.js"></script>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Pneus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Pneus</h1>
+        <div class="form-container">
+            <label for="tipoPneu">Tipo de Pneu:</label>
+            <select id="tipoPneu">
+                <option value="">Selecione um tipo de pneu</option>
+                <option value="kmax">KMAX</option>
+                <option value="fs440">FS440</option>
+                <option value="multz">MULTZ</option>
+                <option value="multt">MULT_T</option>
+                <option value="xbri">XBRI</option>
+                <option value="r269">R269</option>
+                <option value="htr1">HTR1</option>
+                <option value="outro">Outro (Especificar)</option>
+            </select>
+            
+            <div id="outroTipoPneu" style="display: none;">
+                <label for="tipoPneuManual">Digite o nome do pneu:</label>
+                <div style="margin-top: 16px;">
+                <input type="text" id="tipoPneuManual" placeholder="Nome do pneu" maxlength="20">
+                </div>                
+            </div>
+
+            <label for="operacao">Operação:</label>
+            <select id="operacao">
+                <option value="a">Selecione o tipo de operação</option>
+                <option value="a">Adicionar</option>
+                <option value="s">Diminuir</option>
+            </select>
+
+            <label for="quantidade">Quantidade:</label>
+            <input type="text" id="quantidade" placeholder="Digite a quantidade" maxlength="4" required pattern="[0-9]{1,2}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">    
+
+            <button id="adicionar">Executar Operação</button>
+            <button id="resetar">Reiniciar Relatório</button> <!-- Botão de reiniciar adicionado -->
+        </div>
+
+        <div class="resultados">
+            <h2>Resumo de Pneus</h2>
+            <ul id="resumo"></ul>
+            <p id="totalGeral"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
+
